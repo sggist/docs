@@ -1,0 +1,92 @@
+---
+title: "Pricing"
+---
+
+The ArcWeather API is designed to be flexible for both small projects and large-scale applications. Whether you're just getting started or running production workloads, there’s a pricing model that fits your needs.
+
+<Columns cols={2}>
+  <Column>
+    <Card title="Free Tier" icon="leaf">
+      The Free Tier is perfect for development, testing, and small-scale use.
+
+      ### What’s Included
+
+      - Access to core ArcWeather API endpoints
+      - Limited monthly request volume
+      - Standard rate limits
+      - Community-level support
+
+      ### Best For
+
+      - Prototyping and experimentation
+      - Personal projects
+      - Evaluating the API before scaling
+
+      ### Limitations
+
+      - Lower rate limits
+      - Limited monthly usage
+      - Not recommended for production-critical applications
+    </Card>
+  </Column>
+  <Column>
+    <Card title="Pay-As-You-Go" icon="flower-tulip">
+      The Pay-As-You-Go tier is built for production applications and scalable systems.
+
+      ### How It Works
+
+      - You are billed based on **actual usage**
+      - No fixed monthly commitment
+      - Scales automatically with your application
+
+      ### What’s Included
+
+      - Higher or unlimited request volume
+      - Increased rate limits
+      - Access to all supported endpoints
+      - Priority infrastructure and performance
+
+      ### Best For
+
+      - Production applications
+      - High-traffic systems
+      - Commercial or customer-facing products
+    </Card>
+  </Column>
+</Columns>
+
+## Usage-Based Billing
+
+Usage is measured based on API requests and data delivery.
+
+This may include:
+
+- Standard API requests (JSON endpoints)
+- Data-heavy endpoints (radar, lightning, etc.)
+- Binary responses (PMTiles, images, etc.)
+
+Different endpoints may have different usage weights depending on resource intensity.
+
+> Always refer to individual endpoint documentation for specific usage considerations.
+
+## Rate Limits
+
+All plans include rate limiting to ensure system stability.
+
+Each response includes headers such as:
+
+```text
+X-RateLimit-Limit
+X-RateLimit-Remaining
+X-RateLimit-Reset
+```
+
+Higher tiers include higher rate limits.
+
+## Scaling with You
+
+ArcWeather is built to scale:
+
+- Start with the Free Tier
+- Move to Pay-As-You-Go as your usage grows
+- No migration required — just upgrade your plan

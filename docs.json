@@ -9,16 +9,17 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "products": [
+    "tabs": [
       {
-        "product": "ArcWeather Platform",
+        "tab": "ArcWeather Platform",
         "icon": "layer-group",
         "pages": [
+          "learn-more",
           "platform-getting-started"
         ]
       },
       {
-        "product": "ArcWeather API",
+        "tab": "ArcWeather API",
         "icon": "code",
         "versions": [
           {
@@ -26,7 +27,6 @@
             "pages": [
               "api-getting-started",
               "authentication",
-              "untitled-page",
               "attribution-and-usage-requirements",
               {
                 "group": "Radar Services",
@@ -36,7 +36,8 @@
                   "about-radar-services",
                   "static-radar-service"
                 ]
-              }
+              },
+              "pricing"
             ]
           }
         ]

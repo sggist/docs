@@ -1,0 +1,393 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ArcWeather Radar API",
+    "version": "1.0.0",
+    "description": "The ArcWeather Radar API provides access to published CONUS radar PMTiles archives and radar status metadata. Clients should first request the status endpoint to determine the latest available radar timestamp, then request the corresponding PMTiles file for that timestamp. Radar data is typically updated and published every 2 minutes.\n\nAll requests require a valid API key and app header."
+  },
+  "servers": [
+    {
+      "url": "https://conus.prod.radar.arcweather.cloud",
+      "description": "Production CONUS radar service"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": [],
+      "AppAuth": []
+    }
+  ],
+  "paths": {
+    "/status.json": {
+      "get": {
+        "tags": [
+          "Radar"
+        ],
+        "summary": "Get radar publication status",
+        "description": "Returns the current health of the radar service, the latest available published radar timestamp, and a list of available timestamps. Clients should call this endpoint before requesting a PMTiles archive.",
+        "operationId": "getRadarStatus",
+        "responses": {
+          "200": {
+            "description": "Radar status retrieved successfully",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Total number of requests allowed in the current rate limit window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current rate limit window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp indicating when the current rate limit window resets.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RadarStatus"
+                },
+                "examples": {
+                  "example": {
+                    "value": {
+                      "healthy": true,
+                      "latest": "202604022225",
+                      "timestamps": [
+                        "202604022225",
+                        "202604022223",
+                        "202604022221"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailableError"
+          }
+        }
+      }
+    },
+    "/tiles/{timestamp}.pmtiles": {
+      "get": {
+        "tags": [
+          "Radar"
+        ],
+        "summary": "Get radar PMTiles archive by timestamp",
+        "description": "Returns a CONUS radar PMTiles archive for the requested published timestamp. The timestamp should be obtained from the `/status.json` endpoint. Radar is distributed as PMTiles only and is not available as traditional XYZ tile endpoints.",
+        "operationId": "getRadarPmtiles",
+        "parameters": [
+          {
+            "name": "timestamp",
+            "in": "path",
+            "required": true,
+            "description": "Published radar timestamp in YYYYMMDDHHmm format.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{12}$",
+              "example": "202604022225"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PMTiles archive retrieved successfully",
+            "headers": {
+              "Content-Type": {
+                "description": "The content type of the PMTiles archive.",
+                "schema": {
+                  "type": "string",
+                  "example": "application/vnd.pmtiles"
+                }
+              },
+              "X-RateLimit-Limit": {
+                "description": "Total number of requests allowed in the current rate limit window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current rate limit window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix timestamp indicating when the current rate limit window resets.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            },
+            "content": {
+              "application/vnd.pmtiles": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailableError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "API key sent in the Authorization header using Bearer format. Example: `Authorization: Bearer YOUR_API_KEY`"
+      },
+      "AppAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-App",
+        "description": "Application identifier sent in the X-App header using Bearer format. Example: `X-App: Bearer YOUR_APP_ID`"
+      }
+    },
+    "schemas": {
+      "RadarStatus": {
+        "type": "object",
+        "required": [
+          "healthy",
+          "latest",
+          "timestamps"
+        ],
+        "properties": {
+          "healthy": {
+            "type": "boolean",
+            "description": "Whether the radar publishing service is currently healthy.",
+            "example": true
+          },
+          "latest": {
+            "type": "string",
+            "description": "Latest available published radar timestamp in YYYYMMDDHHmm format.",
+            "pattern": "^[0-9]{12}$",
+            "example": "202604022225"
+          },
+          "timestamps": {
+            "type": "array",
+            "description": "List of available published radar timestamps.",
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9]{12}$"
+            },
+            "example": [
+              "202604022225",
+              "202604022223",
+              "202604022221"
+            ]
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "integer",
+                "example": 401
+              },
+              "message": {
+                "type": "string",
+                "example": "Unauthorized"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadRequestError": {
+        "description": "The request was invalid or malformed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": 400,
+                "message": "Bad Request"
+              }
+            }
+          }
+        }
+      },
+      "UnauthorizedError": {
+        "description": "Authentication failed due to a missing or invalid API key or app header.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": 401,
+                "message": "Unauthorized"
+              }
+            }
+          }
+        }
+      },
+      "ForbiddenError": {
+        "description": "The request was understood but is not allowed for this API key or app.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": 403,
+                "message": "Forbidden"
+              }
+            }
+          }
+        }
+      },
+      "NotFoundError": {
+        "description": "The requested resource could not be found.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": 404,
+                "message": "Not Found"
+              }
+            }
+          }
+        }
+      },
+      "TooManyRequestsError": {
+        "description": "Rate limit exceeded.",
+        "headers": {
+          "X-RateLimit-Limit": {
+            "description": "Total number of requests allowed in the current rate limit window.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          "X-RateLimit-Remaining": {
+            "description": "Number of requests remaining in the current rate limit window.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          "X-RateLimit-Reset": {
+            "description": "Unix timestamp indicating when the current rate limit window resets.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": 429,
+                "message": "Too Many Requests"
+              }
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "An unexpected server error occurred.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": 500,
+                "message": "Internal Server Error"
+              }
+            }
+          }
+        }
+      },
+      "ServiceUnavailableError": {
+        "description": "The service is temporarily unavailable.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "error": {
+                "code": 503,
+                "message": "Service Unavailable"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

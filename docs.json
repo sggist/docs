@@ -24,7 +24,17 @@
           {
             "version": "1.01",
             "pages": [
-              "api-getting-started"
+              "api-getting-started",
+              "authentication",
+              "untitled-page",
+              {
+                "group": "Radar Services",
+                "icon": "radar",
+                "openapi": "ArcAPI/radaropenapi.json",
+                "pages": [
+                  "about-radar-services"
+                ]
+              }
             ]
           }
         ]

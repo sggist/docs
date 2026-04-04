@@ -1,0 +1,107 @@
+---
+title: "About Radar Services"
+---
+
+ArcWeather Radar provides high-performance, near real-time weather radar coverage across the continental United States (CONUS). Built for speed, efficiency, and scalability, the radar system is designed to deliver consistent updates with minimal latency.
+
+Radar data is updated and published approximately **every 2 minutes**, ensuring you always have access to the most recent view of precipitation and storm activity.
+
+## How It Works
+
+The ArcWeather Radar API follows a simple two-step flow:
+
+1. **Check availability**\
+   Request the status endpoint to determine the latest available radar timestamp.
+2. **Request the data**\
+   Use that timestamp to fetch the corresponding radar dataset.
+
+This approach ensures you are always working with a valid, published radar frame.
+
+## Data Format: PMTiles
+
+ArcWeather Radar is delivered using **PMTiles**, a modern format for storing and serving tiled geospatial data in a single file.
+
+Instead of requesting thousands of individual map tiles, PMTiles allows you to:
+
+- Load radar data from a **single file per timestamp**
+- Reduce network overhead and request volume
+- Improve performance and caching efficiency
+- Seamlessly integrate with modern map libraries
+
+Each radar frame is distributed as a `.pmtiles` archive containing all zoom levels.
+
+### Learn More About PMTiles
+
+To understand how PMTiles works and how to integrate it into your application, refer to the official documentation:
+
+- [https://docs.protomaps.com/pmtiles/](https://docs.protomaps.com/pmtiles/)
+
+## Example Flow
+
+### Step 1 — Get Latest Radar Timestamp
+
+```text
+GET https://conus.prod.radar.arcweather.cloud/status.json
+```
+
+Response:
+
+```text
+{
+  "healthy": true,
+  "latest": "202604022225",
+  "timestamps": ["202604022225"]
+}
+```
+
+### Step 2 — Request Radar Data
+
+```text
+GET https://conus.prod.radar.arcweather.cloud/tiles/202604022225.pmtiles
+```
+
+This returns a PMTiles archive containing the full CONUS radar dataset for that timestamp.
+
+## What Our Radar Looks Like
+
+<Frame>
+  <img
+    src="/images/radar-tile-example.png"
+    alt="Radar Tile Example"
+    title="Radar Tile Example"
+    className="mr-auto"
+  />
+</Frame>
+
+## Why PMTiles?
+
+ArcWeather uses PMTiles as the primary delivery format because it enables:
+
+- Faster load times for large geographic areas like CONUS
+- Lower infrastructure and bandwidth overhead
+- Better performance at scale
+- Simplified client-side rendering
+
+This is especially important for applications that require frequent updates and large-area coverage.
+
+## Legacy Tile Support
+
+ArcWeather also offers a traditional XYZ tile-based radar format for compatibility with older systems.
+
+However:
+
+- This format is considered **legacy**
+- It is less efficient and requires significantly more requests
+- It is not recommended for new implementations
+
+For the best performance and scalability, **PMTiles is the preferred and recommended format**.
+
+To learn more about our tile services, click here.
+
+## Summary
+
+- Radar updates every ~2 minutes
+- Use `/status.json` to discover available timestamps
+- Fetch radar data via `.pmtiles` archives
+- PMTiles provides better performance and efficiency than traditional tiles
+- Legacy tile support exists but is not recommended

@@ -1,0 +1,41 @@
+---
+title: "Authentication"
+mode: "default"
+---
+
+The ArcWeather API uses a simple and secure authentication model based on API keys and application identifiers. Every request must be authenticated to ensure proper access control and usage tracking.
+
+## Overview
+
+All ArcWeather API requests require **two credentials**:
+
+- **API Key** — Identifies and authorizes the requesting user or system
+- **App Identifier** — Identifies the application making the request
+
+Both values must be sent as **Bearer tokens in request headers**.
+
+## Required Headers
+
+Every request to the ArcWeather API must include the following headers:
+
+```text
+Authorization: Bearer YOUR_API_KEY
+X-App: Bearer YOUR_APP_ID
+```
+
+- Replace `YOUR_API_KEY` with your assigned API key
+- Replace `YOUR_APP_ID` with your registered application identifier
+
+## Important Notes
+
+- Requests **without both headers** will be rejected
+- Invalid or expired credentials will result in an authentication error
+- API keys should be kept secure and never exposed in public client-side code
+- Each app should use its own app identifier for proper tracking and rate limiting
+
+## Best Practices
+
+- Store credentials securely on your server
+- Rotate API keys periodically
+- Use environment variables to manage sensitive values
+- Avoid embedding API keys directly in frontend applications

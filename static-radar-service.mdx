@@ -1,0 +1,111 @@
+---
+title: "Static Radar Service"
+---
+
+The ArcWeather Static Radar API provides a simple way to generate **on-demand radar images** for a specific geographic area. Instead of working with full datasets or map rendering libraries, this API returns a **ready-to-use image **of the latest radar scan.
+
+This makes it ideal for lightweight integrations, reports, previews, and systems that need quick visual context without implementing full map-based rendering.
+
+<Warning>
+  **Usage guidance**
+
+  The Static Radar API is built for simple image rendering and should not be used in interactive map environments. Because the response is a single image, it will not scale or update correctly with map interactions. For dynamic or map-based applications, use the [PMTiles Radar API](/about-radar-services).
+</Warning>
+
+## How It Works
+
+The Static Radar API is designed to be extremely simple:
+
+- You provide a **bounding box** (latitude and longitude range)
+- ArcWeather returns a **rendered radar image** for that area
+- The image always reflects the **latest available radar scan**
+
+There is no need to manage timestamps or datasets.
+
+## Example Request
+
+```text wrap
+GET http://conus.radar.static.prod.arcweather.cloud/radar?minLon=-96.0000&minLat=32.0081&maxLon=-89.7144&maxLat=35.0120
+```
+
+### Parameters
+
+- `minLon` — Minimum longitude
+- `minLat` — Minimum latitude
+- `maxLon` — Maximum longitude
+- `maxLat` — Maximum latitude
+
+These define the geographic area you want the radar image for.
+
+## Response
+
+The API returns a **binary image** representing the latest radar data.
+
+Supported formats:
+
+- **PNG** (default)
+- **WebP** (when supported)
+
+This image can be:
+
+- Displayed directly in a browser
+- Embedded in dashboards
+- Attached to reports or alerts
+- Used in email or messaging workflows
+
+## What It Looks Like
+
+<Frame>
+  <img
+    src="/images/radarstaticimageexample2.png"
+    alt="Radarstaticimageexample2"
+    title="Radarstaticimageexample2"
+  />
+</Frame>
+
+## When to Use Static Radar
+
+The Static Radar API is best suited for:
+
+- Simple dashboards
+- Email or SMS previews
+- Scheduled reports
+- Systems without interactive maps
+- Quick visual snapshots of weather conditions
+
+## Static Radar vs PMTiles Radar
+
+ArcWeather offers two radar delivery methods:
+
+### Static Radar (this API)
+
+- Returns a **pre-rendered image**
+- Very simple to integrate
+- No frontend map library required
+- Always uses the latest scan
+
+### PMTiles Radar
+
+- Returns a **full radar dataset**
+- Designed for interactive maps
+- Higher performance and flexibility
+- Recommended for advanced applications
+
+If you need interactivity, animation, or advanced control, use the PMTiles-based Radar API. If you just need a quick image, Static Radar is the fastest option.
+
+## Authentication
+
+All requests require:
+
+- `Authorization: Bearer YOUR_API_KEY`
+- `X-App: Bearer YOUR_APP_ID`
+
+Requests without valid authentication will be rejected.
+
+## Summary
+
+- Returns a **static radar image** for a bounding box
+- Always uses the **latest radar scan**
+- Simple HTTP request, no rendering required
+- Ideal for lightweight and non-interactive use cases
+- Complements the full PMTiles Radar API

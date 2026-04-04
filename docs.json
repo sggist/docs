@@ -32,7 +32,8 @@
                 "icon": "radar",
                 "openapi": "ArcAPI/radaropenapi.json",
                 "pages": [
-                  "about-radar-services"
+                  "about-radar-services",
+                  "static-radar-service"
                 ]
               }
             ]

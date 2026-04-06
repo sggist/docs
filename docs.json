@@ -49,7 +49,7 @@
           {
             "version": "1.0.1",
             "pages": [
-              "getting-started",
+              "arc-ai-getting-started",
               "connecting-to-arcweather-ai-mcp"
             ]
           }
@@ -112,5 +112,17 @@
   },
   "metadata": {
     "timestamp": true
+  },
+  "background": {
+    "decoration": "grid"
+  },
+  "styling": {
+    "eyebrows": "breadcrumbs"
+  },
+  "integrations": {
+    "cookies": {
+      "key": "arc_docs_visit",
+      "value": "true"
+    }
   }
 }

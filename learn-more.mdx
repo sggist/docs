@@ -1,40 +1,30 @@
 ---
-title: "ArcWeather Platform vs API "
+mode: "default"
+title: "Welcome to ArcWeather"
 ---
 
-ArcWeather offers two ways to access weather data and capabilities: the **ArcWeather Platform** and the **ArcWeather API**. While both provide access to the same underlying data and intelligence, they are designed for very different use cases.
+<Columns cols={2}>
+  <Column>
+    <Card title="ArcWeather Platform" href="/platform-getting-started" img="/images/hero-light.png" cta="View Docs">
+      The ArcWeather Platform handles everything for you, from data processing to alerting to user experience.
+    </Card>
+  </Column>
+  <Column>
+    <Card title="ArcWeather API" href="/api-getting-started" img="/images/hero-light.png" cta="View Docs">
+      The ArcWeather API is designed for developers who want full control and customization.
+    </Card>
+  </Column>
+</Columns>
 
-## ArcWeather Platform
-
-The ArcWeather Platform is a **platform-as-a-service (PaaS)** designed for organizations and teams that want a complete, ready-to-use solution.
-
-With the platform, you get:
-
-- A **simple, intuitive dashboard**
-- Real-time weather data and visualizations
-- **Policy-based alerts** (lightning, severe weather, etc.)
-- **Notifications** via email, SMS, and push
-- Shareable views for teams, staff, or the public
-- No development required
-
-The platform handles everything for you, from data processing to alerting to user experience.
-
-## ArcWeather API
-
-The ArcWeather API is designed for **developers** who want full control and customization.
-
-With the API, you get:
-
-- Direct access to **raw weather data**
-- Endpoints for radar, lightning, alerts, and more
-- Flexibility to build your own dashboards, apps, and workflows
-- The ability to integrate ArcWeather into existing systems
-
-However, with the API:
-
-- You must build your own UI
-- You must handle notifications and alerting
-- You are responsible for implementation and infrastructure
+<Columns cols={2}>
+  <Column>
+    <Card title="ArcAI BETA" href="/arc-ai-getting-started" img="/images/hero-light.png" cta="View Docs">
+      ArcAI BETA is designed for developers who want full control and customization.
+    </Card>
+  </Column>
+  <Column>
+  </Column>
+</Columns>
 
 ## Key Differences
 
@@ -46,17 +36,3 @@ However, with the API:
 | Data Access | Abstracted | Raw data |
 | Customization | Limited to platform features | Fully customizable |
 | Use Case | Teams, organizations | Developers, integrations |
-
-## Which Should You Use?
-
-**Use the Platform if:**
-
-- You want a complete solution with minimal setup
-- You need alerts and notifications out of the box
-- You are not building a custom application
-
-**Use the API if:**
-
-- You are building a custom app, dashboard, or system
-- You need full control over the experience
-- You want to integrate weather data into your own workflows

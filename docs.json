@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "ArcWeather Docs",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#067CC3",
+    "light": "#067CC3",
+    "dark": "#067CC3"
   },
   "favicon": "/favicon.svg",
   "navigation": {

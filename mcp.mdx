@@ -1,0 +1,128 @@
+---
+title: "Connecting to Arc Weather MCP"
+---
+
+<Badge color="yellow" size="lg">Beta 1.0.1</Badge>
+
+This guide walks through how to connect your AI tool or application to Arc Weather MCP. It assumes you already have access to an environment that supports MCP and that you are ready to configure an external MCP endpoint.
+
+## MCP Endpoint Overview
+
+Arc Weather MCP is hosted at:
+
+```text
+https://mcp.arcweather.cloud
+```
+
+To authenticate, you must include your API key as a URL parameter. A typical connection string looks like this:
+
+```text
+https://mcp.arcweather.cloud?api_key=YOUR_API_KEY
+```
+
+Replace `YOUR_API_KEY` with the key you were issued.
+
+This endpoint gives your AI tool access to structured weather data including current conditions, forecasts, and alerts.
+
+## Step 1: Get Your API Key
+
+Before connecting, you need an API key.
+
+- Sign up or request access through Arc Weather
+- Generate or retrieve your API key from your account dashboard
+- Keep your API key secure and do not expose it publicly
+
+## Step 2: Configure Your MCP Connection
+
+Most MCP compatible tools allow you to register an external MCP server. The exact steps vary depending on your platform, but the general process is similar.
+
+### Basic Configuration
+
+- Set the MCP endpoint URL to:\
+  `https://mcp.arcweather.cloud?api_key=YOUR_API_KEY`
+- Give the connection a recognizable name, such as:\
+  `Arc Weather MCP`
+- Save and enable the connection
+
+Once configured, your AI tool should be able to query the MCP automatically.
+
+## Step 3: Platform Specific Setup
+
+Each AI platform handles MCP connections a little differently. You will need to follow the instructions for your specific environment.
+
+### Chatbots (ChatGPT, Gemini, etc.)
+
+- Look for settings related to tools, plugins, or MCP servers
+- Add a new MCP endpoint using the Arc Weather URL
+- Enable it for your session or workspace
+
+Check your chatbot’s official documentation for details on:
+
+- Enabling MCP or tool usage
+- Adding external endpoints
+- Managing API keys securely
+
+### Developer Tools and Local Agents
+
+If you are using a local AI agent or framework:
+
+- Add the MCP endpoint to your tool configuration file
+- Ensure your runtime supports MCP protocol calls
+- Restart or reload your agent after configuration
+
+Common places to configure MCP:
+
+- JSON or YAML config files
+- Environment variables
+- CLI flags
+
+### Command Line Interfaces (CLI)
+
+Some CLIs support MCP directly or through plugins.
+
+Typical steps include:
+
+- Registering a new MCP server via a command
+- Passing the endpoint URL with your API key
+- Verifying the connection with a test query
+
+Refer to your CLI’s documentation for exact commands and syntax.
+
+## Step 4: Test the Connection
+
+After setup, test your MCP connection with a simple query.
+
+Examples:
+
+- What is the weather in New York right now
+- Is there any severe weather alert in Houston
+- What is the forecast for tomorrow in Los Angeles
+
+If everything is configured correctly, your AI should return live weather data instead of generic responses.
+
+## Troubleshooting
+
+If the connection is not working:
+
+- Double check your API key
+- Make sure the URL is formatted correctly
+- Confirm your platform supports MCP
+- Review logs or error messages in your tool
+
+If needed, consult:
+
+- Your AI platform’s MCP integration guide
+- Arc Weather support
+
+## Best Practices
+
+- Store your API key securely using environment variables or secrets management
+- Avoid hardcoding keys in public repositories
+- Monitor usage if your plan has limits
+- Update your configuration if the beta endpoint changes
+
+## Final Thoughts
+
+Connecting to Arc Weather MCP is straightforward once you understand how your platform handles MCP endpoints. The key steps are adding the correct URL, including your API key, and following your tool’s integration guide.
+
+Because MCP support varies across platforms, always refer to your specific AI chatbot, development framework, or CLI documentation for exact setup instructions.

@@ -7,7 +7,7 @@
     "light": "#067CC3",
     "dark": "#067CC3"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/images/arcweather-icon-final-500px.png",
   "navigation": {
     "tabs": [
       {
@@ -58,8 +58,8 @@
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/images/arcweather-icon-final-500px.png",
+    "dark": "/images/arcweather-icon-final-500px.png"
   },
   "navbar": {
     "links": [
